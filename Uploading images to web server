@@ -1,0 +1,18 @@
+# The Python requests module is used to send the file contents to the [linux-instance-IP-Address] / upload URL  that is handles the fruit catalog.
+# In the home directory, a script takes jpeg images from the supplier-data/images directory to upload to the running fruit catalog web server is required.
+# the script is called supplier_image_upload.py:
+
+
+#!/usr/bin/env python3
+import os, sys
+import requests
+
+url = "http://[linux-instance-IP-Address] / upload URL "
+path = "/home/directory/supplier-data/images/"
+
+images = os.listdir(path)
+
+for image in images:
+  if image.endswith(".jpeg"):
+    with open(path + image, 'rb') as opened:
+      r = requests.post(url, files={'file': opened})
