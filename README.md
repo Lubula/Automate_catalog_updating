@@ -13,11 +13,12 @@ Project phases:
 
 Project steps and reason for code: 
 
-1) Given a bunch of images and descriptions of each of the new products, 
-2) Upload the new products to your online store. 
-3) Images and descriptions should be uploaded separately, using two different web endpoints.
-4) Send a report back to the supplier, letting them know what you imported.
-5) Since this process is key to your business's success, you need to make sure that it keeps 
-running! So, you’ll also:
+1) Create a python script to process the supplier images (products) to company specifications
+2) Images and descriptions should be uploaded separately, using two different web endpoints.
+3) Upload the modified images online (to the web server) that is handles the fruit catalog.
+4) create a python script that automates POST the fruit images and their respective description
+  in JSON format
+5) Generate a PDF report and send it through email to supplier to acknowledge reciept.
+6) Process is key to business's success, A Health Check is required. Included are:
 - Run a script on your web server to monitor system health.
 - Send an email with an alert if the server is ever unhealthy.
