@@ -1,0 +1,68 @@
+# images and descriptions have been uploaded to the fruit store web-server, need to generate a PDF file to send to the supplier, indicating that the data was processed.
+# To generate PDF reports, the ReportLab library is used. 
+# Using the reportlab Python library, define the method generate_report to build the PDF reports
+
+# script named reports.py :
+
+#!/usr/bin/env python3
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+
+def generate_report(filename, title, info):
+    styles = getSampleStyleSheet()
+    report = SimpleDocTemplate(filename)
+    report_title = Paragraph(title, styles["h1"])
+    report_info = Paragraph(info, styles["BodyText"])
+    empty_line = Spacer(1,20)
+
+    report.build([report_title, empty_line, report_info, empty_line])
+    
+        
+        
+ # Once the PDF is generated, the email using the emails.generate_email() and emails.send_email() methods.
+ # script is named report_email.py : 
+ 
+ 
+#!/usr/bin/env python3
+
+import os, datetime
+import reports
+import emails
+
+#get the current time in GMT
+current_date = datetime.datetime.now().strftime('%Y-%m-%d')
+
+def generate_pdf(path):
+  pdf = ""
+  files = os.listdir(path)
+  for file in files:
+    if file.endswith(".txt"):
+      with open(path + file, 'r') as f:
+        inline = f.readlines()
+        name = inline[0].strip()
+        weight = inline[1].strip()
+        pdf += "name: " + name + "<br/>" + "weight: " + weight + "<br/><br/>"
+  return pdf
+
+if __name__ == "__main__":
+  path = "/home/directory/supplier-data/descriptions/"
+  title = "Process Updated on" + current_date 
+  #generate the package for pdf body
+  package = generate_pdf(path)
+  reports.generate_report("/tmp/processed.pdf", title, package)
+
+  #generate email information
+  sender = "automation@example.com"
+  receiver = "{}@example.com".format(os.environ["USER"])
+  subject = "Upload Completed - Online Fruit Store"
+  body = "All fruits are uploaded to our website successfully. A detailed list is attached to this email."
+  attachment = "/tmp/processed.pdf"
+  
+  #generate email for the online fruit store report and pdf attachment
+  message = emails.generate_email(sender, receiver, subject, body, attachment)
+  emails.send_email(message)
+
+
+    
+ 
