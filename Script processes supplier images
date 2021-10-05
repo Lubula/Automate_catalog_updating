@@ -2,20 +2,20 @@
 # create a directory named supplier-data, that contains subdirectories named images and descriptions.
 # a Python script named changeImage.py to process the supplier images, using PIL library to update all images within ~/supplier-data/images directory tocompany requiments.
 
-ChangeImage.py
+# script name ChangeImage.py :
 
 #!/usr/bin/env python3
 
 from PIL import Image
 import os, sys
 
-path = "/home/(fill in with specific drectorctory)/supplier-data/images/"
+path = "/home/directory/supplier-data/images/"
 pictures = os.listdir(path)
 for pic in pictures:
   if 'tiff' in pic:
     #grab the picture name without the .tiff extension
     file_name = os.path.splitext(pic)[0]
-    outfile = "/home/(fill in with specific drectorctory)/supplier-data/images/" + file_name + ".jpeg"
+    outfile = "/home/directory/supplier-data/images/" + file_name + ".jpeg"
     try:
       Image.open(path + pic).convert("RGB").resize((600,400)).save(outfile,"JPEG")
     except IOError:
