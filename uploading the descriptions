@@ -1,0 +1,33 @@
+# The Django server offers multiple benefits, example can be set up to show the fruit catalog for the company. The Django REST framework, is vital.
+# Python requests library is used.
+# The Python script will automatically POST the fruit images and their respective description in JSON format.
+# Python script processes the text files (001.txt, 003.txt ...) from the supplier-data/descriptions directory.
+# The script should turn the data into a JSON dictionary by adding all the required fields, including the image associated with the fruit (image_name),
+# The script finally uploads it to http://[linux-instance-external-IP]/fruits using the Python requests library.
+
+# Python script named run.py : 
+
+#!/usr/bin/env python3
+
+import os, sys
+import json
+import requests
+
+path = "/home/directory/supplier-data/descriptions/"
+url = "http://[linux-instance-external-IP] or [Url address]/fruits/"
+
+files = os.listdir(path)
+
+
+for file in files:
+  if file.endswith("txt"):
+    with open(path + file, 'r') as f:
+      #grab the file name, ex. 001, 002 to use for image file
+      fruit_name = os.path.splitext(file)[0]
+      data = f.read()
+      data = data.split("\n")
+      fruit_dic = {"name": data[0], "weight": int(data[1].strip(" lbs")), "description": data[2], "image_name": fruit_name + ".jpeg"}
+      response = requests.post(url, json=fruit_dic)
+      response.raise_for_status()
+      print(response.request.url)
+      print(response.status_code)
