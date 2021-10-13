@@ -4,14 +4,14 @@ An online fruits store needs to develop a system that will update the catalog in
 Firstly the problem broken down into smaller phases and then eventually into even smaller pieces
 that can solved. The project then built using smaller pieces into a larger solution. 
 
-Project phases:
+## Project phases:
 1) Write a script that summarizes and processes sales data into different categories
 2) Generate a PDF using Python
 3) Automatically send a PDF by email
 4) Write a script to check the health status of the system
 
 
-Project steps and reason for code: 
+## Project steps and reason for code: 
 
 1) Create a python script to process the supplier images (products) to company specifications
 2) Images and descriptions should be uploaded separately, using two different web endpoints.
